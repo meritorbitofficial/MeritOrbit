@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       crypto
         .createHmac(
           "sha256",
-          process.env.RAZORPAY_KEY_SECRET!
+          process.env.ggEf2xZOPwRX2l3Isn5A8Ut1!
         )
         .update(body)
         .digest("hex");
