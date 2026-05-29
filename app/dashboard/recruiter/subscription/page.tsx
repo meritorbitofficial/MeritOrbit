@@ -79,31 +79,42 @@ async function openRazorpay(
   months: number,
   unlocks: number
 ) {
+  const response = await fetch(
+    "/api/razorpay/create-order",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: amount * 100,
+      }),
+    }
+  );
+
+  const order = await response.json();
 
   const options = {
-    key:
-      process.env
-        .NEXT_PUBLIC_RAZORPAY_KEY_ID,
+    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
 
-    amount: amount * 100,
+    amount: order.amount,
 
-    currency: "INR",
+    currency: order.currency,
+
+    order_id: order.id,
 
     name: "MeritOrbit",
 
     description: plan,
 
     handler: async function () {
-
       await activatePlan(
         plan,
         months,
         unlocks
       );
 
-      alert(
-        "Payment successful"
-      );
+      alert("Payment successful");
     },
   };
 
