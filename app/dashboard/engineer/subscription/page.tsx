@@ -117,10 +117,6 @@ async function openRazorpay(
   plan: string,
   months: number
 ) {
-
-  alert("TEST VERSION 123");
-
-  console.log("Creating order...");
   
   const response = await fetch(
     "/api/razorpay/create-order",
@@ -137,7 +133,7 @@ async function openRazorpay(
   );
 
   const order = await response.json();
-alert(JSON.stringify(order));
+
   const options = {
     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
 
@@ -161,19 +157,17 @@ alert(JSON.stringify(order));
     },
   };
 
-alert(typeof (window as any).Razorpay);
-
-  const razorpay =
-    new (window as any).Razorpay(
-      options
-    );
-
-    if (!(window as any).Razorpay) {
-  alert("Razorpay script not loaded");
+ if (!(window as any).Razorpay) {
+  alert("Payment system unavailable");
   return;
 }
 
-  razorpay.open();
+const razorpay =
+  new (window as any).Razorpay(
+    options
+  );
+
+razorpay.open();
 }
 
 async function activatePlan(

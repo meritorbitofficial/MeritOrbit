@@ -93,7 +93,7 @@ async function openRazorpay(
   );
 
   const order = await response.json();
-
+  
   const options = {
     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
 
@@ -128,7 +128,11 @@ async function openRazorpay(
 
  return (
 <>
-<Script src="https://checkout.razorpay.com/v1/checkout.js" />
+<Script
+  id="razorpay-script"
+  src="https://checkout.razorpay.com/v1/checkout.js"
+  strategy="afterInteractive"
+/>
   <div
     style={{
       paddingLeft: "40px",
