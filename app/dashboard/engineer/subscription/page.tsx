@@ -12,8 +12,9 @@ export default function SubscriptionPage() {
   return (
     <>
       <Script
+  id="razorpay-script"
   src="https://checkout.razorpay.com/v1/checkout.js"
-  strategy="beforeInteractive"
+  strategy="afterInteractive"
 />
     
     <div>
@@ -166,6 +167,11 @@ alert(typeof (window as any).Razorpay);
     new (window as any).Razorpay(
       options
     );
+
+    if (!(window as any).Razorpay) {
+  alert("Razorpay script not loaded");
+  return;
+}
 
   razorpay.open();
 }
