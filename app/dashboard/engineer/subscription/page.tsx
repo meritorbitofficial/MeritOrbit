@@ -32,7 +32,7 @@ export default function SubscriptionPage() {
         <div style={card}>
           <h2>Base Verified</h2>
 
-          <p style={price}>₹999</p>
+          <p style={price}>₹1</p>
 
           <p>• Grey verification badge</p>
           <p>• Required to appear on recruiter's search list</p>
