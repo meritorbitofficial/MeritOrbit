@@ -1,5 +1,6 @@
 "use client";
 
+import Script from "next/script";
 import { auth, db } from "@/lib/firebase";
 
 import {
@@ -9,6 +10,8 @@ import {
 
 export default function SubscriptionPage() {
   return (
+    <>
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
     
     <div>
 
@@ -32,10 +35,8 @@ export default function SubscriptionPage() {
           <p>• Verified engineer profile</p>
           <p>• Badge for lifetime</p>
 
-         <button
-  onClick={() =>
-    activatePlan("grey", 120)
-  }
+        <button
+  onClick={openRazorpay}
   style={button}
 >
   Activate
@@ -89,7 +90,42 @@ export default function SubscriptionPage() {
       </div>
 
     </div>
-  )
+    </>
+  );
+}
+
+async function openRazorpay() {
+
+  const options = {
+    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+
+    amount: 1,
+
+    currency: "INR",
+
+    name: "MeritOrbit",
+
+    description: "Grey Verification Badge",
+
+    handler: async function () {
+
+      await activatePlan(
+        "grey",
+        120
+      );
+
+      alert(
+        "Payment successful"
+      );
+    },
+  };
+
+  const razorpay =
+    new (window as any).Razorpay(
+      options
+    );
+
+  razorpay.open();
 }
 
 async function activatePlan(
