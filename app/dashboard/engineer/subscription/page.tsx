@@ -117,7 +117,7 @@ async function openRazorpay(
   months: number
 ) {
 
-  alert("OPEN RAZORPAY STARTED");
+  alert("TEST VERSION 123");
 
   console.log("Creating order...");
   
