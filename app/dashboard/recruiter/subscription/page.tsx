@@ -1,5 +1,7 @@
 "use client";
 
+import Script from "next/script";
+
 import { auth, db } from "@/lib/firebase";
 
 import {
@@ -71,7 +73,51 @@ export default function SubscriptionPage() {
 
   }
 
+async function openRazorpay(
+  amount: number,
+  plan: string,
+  months: number,
+  unlocks: number
+) {
+
+  const options = {
+    key:
+      process.env
+        .NEXT_PUBLIC_RAZORPAY_KEY_ID,
+
+    amount: amount * 100,
+
+    currency: "INR",
+
+    name: "MeritOrbit",
+
+    description: plan,
+
+    handler: async function () {
+
+      await activatePlan(
+        plan,
+        months,
+        unlocks
+      );
+
+      alert(
+        "Payment successful"
+      );
+    },
+  };
+
+  const razorpay =
+    new (window as any).Razorpay(
+      options
+    );
+
+  razorpay.open();
+}
+
  return (
+<>
+<Script src="https://checkout.razorpay.com/v1/checkout.js" />
   <div
     style={{
       paddingLeft: "40px",
@@ -117,11 +163,12 @@ export default function SubscriptionPage() {
 
           <button
             onClick={() =>
-              activatePlan(
-                "startup",
-                1,
-                150
-              )
+             openRazorpay(
+  5999,
+  "startup",
+  1,
+  150
+)
             }
             style={button}
           >
@@ -154,11 +201,12 @@ export default function SubscriptionPage() {
 
           <button
             onClick={() =>
-              activatePlan(
-                "agency",
-                1,
-                500
-              )
+             openRazorpay(
+  14999,
+  "agency",
+  1,
+  500
+)
             }
             style={button}
           >
@@ -191,11 +239,12 @@ export default function SubscriptionPage() {
 
           <button
             onClick={() =>
-              activatePlan(
-                "enterprise",
-                1,
-                999999
-              )
+             openRazorpay(
+  26999,
+  "enterprise",
+  1,
+  999999
+)
             }
             style={button}
           >
@@ -207,8 +256,10 @@ export default function SubscriptionPage() {
       </div>
 
     </div>
+    </>
   );
 }
+
 
 const card = {
   background: "white",

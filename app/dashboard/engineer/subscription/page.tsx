@@ -36,7 +36,13 @@ export default function SubscriptionPage() {
           <p>• Badge for lifetime</p>
 
         <button
-  onClick={openRazorpay}
+  onClick={() =>
+  openRazorpay(
+    999,
+    "grey",
+    120
+  )
+}
   style={button}
 >
   Activate
@@ -57,8 +63,12 @@ export default function SubscriptionPage() {
 
          <button
   onClick={() =>
-    activatePlan("blue", 1)
-  }
+  openRazorpay(
+    1299,
+    "blue",
+    1
+  )
+}
   style={button}
 >
   Upgrade to Pro
@@ -79,8 +89,12 @@ export default function SubscriptionPage() {
 
          <button
   onClick={() =>
-    activatePlan("gold", 1)
-  }
+  openRazorpay(
+    1699,
+    "gold",
+    1
+  )
+}
   style={button}
 >
   Upgrade to Elite
@@ -94,29 +108,31 @@ export default function SubscriptionPage() {
   );
 }
 
-async function openRazorpay() {
+async function openRazorpay(
+  amount: number,
+  plan: string,
+  months: number
+) {
 
   const options = {
     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
 
-    amount: 1,
+    amount: amount * 100,
 
     currency: "INR",
 
     name: "MeritOrbit",
 
-    description: "Grey Verification Badge",
+    description: plan,
 
     handler: async function () {
 
       await activatePlan(
-        "grey",
-        120
+        plan,
+        months
       );
 
-      alert(
-        "Payment successful"
-      );
+      alert("Payment successful");
     },
   };
 
@@ -127,7 +143,6 @@ async function openRazorpay() {
 
   razorpay.open();
 }
-
 async function activatePlan(
   type: string,
   months: number
