@@ -11,7 +11,10 @@ import {
 export default function SubscriptionPage() {
   return (
     <>
-      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
+      <Script
+  src="https://checkout.razorpay.com/v1/checkout.js"
+  strategy="beforeInteractive"
+/>
     
     <div>
 
@@ -114,7 +117,10 @@ async function openRazorpay(
   months: number
 ) {
 
+  alert("OPEN RAZORPAY STARTED");
+
   console.log("Creating order...");
+  
   const response = await fetch(
     "/api/razorpay/create-order",
     {
@@ -130,7 +136,7 @@ async function openRazorpay(
   );
 
   const order = await response.json();
-
+alert(JSON.stringify(order));
   const options = {
     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
 
@@ -153,6 +159,8 @@ async function openRazorpay(
       alert("Payment successful");
     },
   };
+
+alert(typeof (window as any).Razorpay);
 
   const razorpay =
     new (window as any).Razorpay(
