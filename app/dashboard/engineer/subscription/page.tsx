@@ -42,7 +42,7 @@ export default function SubscriptionPage() {
         <button
   onClick={() =>
   openRazorpay(
-    999,
+    1,
     "grey",
     120
   )
