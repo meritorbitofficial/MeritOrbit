@@ -42,7 +42,7 @@ export default function SubscriptionPage() {
         <button
   onClick={() =>
   openRazorpay(
-    1,
+    999,
     "grey",
     120
   )
@@ -68,7 +68,7 @@ export default function SubscriptionPage() {
          <button
   onClick={() =>
   openRazorpay(
-    1299,
+    1,
     "blue",
     1
   )
@@ -94,7 +94,7 @@ export default function SubscriptionPage() {
          <button
   onClick={() =>
   openRazorpay(
-    1699,
+    1,
     "gold",
     1
   )
